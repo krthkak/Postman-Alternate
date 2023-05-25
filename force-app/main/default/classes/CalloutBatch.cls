@@ -21,6 +21,7 @@ public class CalloutBatch implements Database.Batchable<sObject>,Database.Allows
         RestRequestController.logBulkAPITransactions(RequestResponseWrapperList);
     }
  
+    //interface mandate
     public void finish(Database.BatchableContext BC){
     }
 
