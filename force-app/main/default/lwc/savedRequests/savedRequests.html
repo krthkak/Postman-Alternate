@@ -1,0 +1,65 @@
+<template>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open slds-modal_large">
+        <div class="slds-modal__container">
+        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse">
+        <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+        </svg>
+        <span class="slds-assistive-text">Cancel and close</span>
+        </button>
+        <div class="slds-modal__header">
+        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Select Request</h1>
+        </div>
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <!-- <div class="slds-is-relative">
+                <template if:true={showSpinner}>
+                     <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+                     </lightning-spinner>
+                </template>
+            </div> -->
+            <lightning-layout multiple-rows="true" vertical-align="end" horizontal-align="space">
+                <lightning-layout-item flexibility="auto" size="12" small-device-size="10" medium-device-size="8" large-device-size="6" padding="around-small">
+                    <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                    <lightning-input type="text" 
+                                                        placeholder="Enter Saved Request Name" 
+                                                        onchange={handleKeyChange} ></lightning-input>
+                            </div>
+                    </div> 
+                </lightning-layout-item>
+                <!-- <lightning-layout-item flexibility="auto" size="12" small-device-size="2" medium-device-size="2" large-device-size="2" padding="around-small">
+                        <lightning-button label="Search" 
+                                            variant="brand" 
+                                            onclick={handleKeyChange}></lightning-button>
+                    </lightning-layout-item> -->
+            </lightning-layout><br/>
+            <lightning-layout>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-scrollable_x">
+                    <tr>
+                        <th style="height: 50px;font-weight: bold;text-align:center;">Action</th>
+                        <th style="height: 50px;font-weight: bold;text-align:center;">Request Name</th>
+                        <th style="height: 50px;font-weight: bold;text-align:center;">Method</th>
+                        <th style="height: 50px;font-weight: bold;text-align:center;">URL</th>
+                    
+                    </tr>         
+                    <template for:each={requestList} for:item="item" for:index="index">
+                        <tr key={item.id}>
+                            <td style="text-align:center;"><lightning-button label="Select" data-id={item.Id} onclick= {sendSelectedSavedRequestInformation}></lightning-button></td>
+                            <td style="text-align:center;">{item.Request_Name__c}</td>
+                            <td style="text-align:center;"><div><lightning-formatted-text style="color:springgreen;" value={item.Method_Type__c} ></lightning-formatted-text></div></td>
+                            <!-- <td class="slds-cell-wrap"><div style="word-wrap: break-word;"><lightning-formatted-text style="word-wrap: break-word;" value={item.URL__c} linkify></lightning-formatted-text></div></td> -->
+                            <td style="text-align:center;" class="slds-cell-wrap"><a href={item.URL__c}><div style="word-wrap: break-word;">{item.URL__c}</div></a></td>
+                        </tr>
+                    </template>
+                </table>
+            </lightning-layout>
+
+        </div>
+        <div class="slds-modal__footer">
+        <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={closeSavedRequestModal}>Cancel</button>
+        <!-- <button class="slds-button slds-button_brand">Save</button> -->
+        </div>
+        </div>0
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Transaction_Origin__c</fullName>
+    <description>This field determines whether the transaction was logged from the UI by an end user or automatically logged after a scheduled job makes a periodic request to target.</description>
+    <externalId>false</externalId>
+    <label>Transaction Origin</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Scheduled - Asynchronous</fullName>
+                <default>false</default>
+                <label>Scheduled - Asynchronous</label>
+            </value>
+            <value>
+                <fullName>UI - Synchronous</fullName>
+                <default>false</default>
+                <label>UI - Synchronous</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

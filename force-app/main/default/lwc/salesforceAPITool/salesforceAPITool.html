@@ -1,0 +1,138 @@
+<template>
+    <!-- Spinner start-->
+    <div class="spinner">
+        <template if:true={showSpinner}>
+             <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+             </lightning-spinner>
+        </template>
+    </div>
+    <!-- spinner end -->
+
+    
+    <lightning-layout vertical-align="center" horizontal-align="center">
+        <!-- <lightning-layout-item padding="around-small">
+            <button class="slds-button slds-button_neutral" onclick={refreshCurrentRequest}>Refresh</button>
+        </lightning-layout-item> -->
+
+
+        <lightning-layout-item>
+            <div class="slds-form-element" >
+                    <div class="slds-form-element__control">
+                    <input type="text" size="50" id="text-iiinput-id-46" placeholder="Request Name" required="" class="slds-input" value = {requestName} onchange={onRequestNameChange}/>
+                    </div>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item>
+            <button class="slds-button slds-button_neutral" onclick={saveRequest}>Save Request</button>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+            <button class="slds-button slds-button_neutral" onclick={refreshCurrentRequest}>Refresh</button>
+        </lightning-layout-item>
+        <lightning-layout-item >
+            <button class="slds-button slds-button_neutral" onclick={openSavedRequestSelectionModal}>Saved Requests</button>
+        </lightning-layout-item>
+
+    </lightning-layout>
+    
+    <!-- To Open the Modal Window that shows the previous saved transactions -->
+    <template if:true= {openSavedRequestSelectionModalFlag}>
+        <c-saved-requests onclosesavedrequestmodal={closeSavedRequestModalHandler}
+            onselectedsavedrequestinformation={displaySelectedSavedRequestInformation}></c-saved-requests>
+    </template>
+    <!-- End -->
+    <div class="c-container">
+        <lightning-layout  multiple-rows="true">
+            <lightning-layout-item flexibility="auto" padding="around-small" class="custom-box">
+                <h1 class="header"><b>Request Information</b></h1>
+                <div class="row">
+                    <!-- <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-4"> -->
+                            <lightning-radio-group name="MethodTypeRadioGroup"
+                                options={options}
+                                value={methodType}
+                                type="button"
+                                onchange = {onMethodChange}></lightning-radio-group>
+                    
+                    <lightning-input name="URL" placeholder="Enter URL" value={URL} field-level-help="Be sure to add the URL into the Remote Site Settings setup configuration." onchange={onRequestInformationChange} required="true"></lightning-input><br/>
+                    <lightning-button label="Send" onclick={sendRequest}></lightning-button>
+                    <br><br/>
+                    
+                    <lightning-tabset variant="scoped">
+                        <!--- Header Tab-->
+                        <lightning-tab label="Header Information">                           
+                            <template for:each={headerList} for:item="item" for:index="index">
+                                <lightning-layout multiple-rows key={item.id} pull-to-boundary="medium">
+                                    <lightning-layout-item flexibility="auto"
+                                    class="slds-p-top_x-large" padding="horizontal-medium">
+                                        <lightning-input type="checkbox-button" label="Include" data-id={item.id} data-name={item.type} name="shouldInclude" onchange={onFieldSetChange} checked={item.shouldInclude}></lightning-input>
+                                    </lightning-layout-item> 
+                                    <lightning-layout-item flexibility="auto"
+                                    padding="around-small">
+                                        <lightning-input  name="key" placeholder="Key" data-id={item.id} data-name={item.type} value = {item.key} onchange={onFieldSetChange}></lightning-input>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item flexibility="auto"
+                                    padding="around-small">
+                                        <lightning-input  name="value" placeholder="Value" data-id={item.id} data-name={item.type} value = {item.value} onchange={onFieldSetChange}></lightning-input>
+                                    </lightning-layout-item>
+                                </lightning-layout>
+                            </template>
+                        	<lightning-button label="Add another Header" onclick = {addHeaderFieldSet}></lightning-button>
+                        </lightning-tab>
+                        <!--- Header Tab-->
+                        <!--- Query Tab-->
+                        <lightning-tab label="Query Parameters">
+                            <template for:each={queryParameterList} for:item="item" for:index="index">
+                                <lightning-layout multiple-rows key={item.id} pull-to-boundary="medium">
+                                    <lightning-layout-item flexibility="auto"
+                                    class="slds-p-top_x-large" padding="horizontal-medium">
+                                        <lightning-input type="checkbox-button" label="Include" name="shouldInclude" data-id={item.id} data-name={item.type} onchange={onFieldSetChange} checked={item.shouldInclude}></lightning-input>
+                                    </lightning-layout-item> 
+                                    <lightning-layout-item flexibility="auto"
+                                    padding="around-small">
+                                        <lightning-input  name="key" placeholder="Key" value = {item.key} data-id={item.id} data-name={item.type} onchange={onFieldSetChange}></lightning-input>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item flexibility="auto"
+                                    padding="around-small">
+                                        <lightning-input  name="value" placeholder="Value" value = {item.value} data-id={item.id} data-name={item.type} onchange={onFieldSetChange}></lightning-input>
+                                    </lightning-layout-item>
+                                </lightning-layout>
+                            </template>
+                        	<lightning-button label="Add another Query Parameter" onclick = {addQueryParameterFieldSet}></lightning-button>
+                        </lightning-tab>
+                        <!--- Query Tab-->
+                        <!--- Request Tab-->
+                        <template if:true={showRequestForPost}>
+                            <lightning-tab label="Request Payload">
+                               	<div>
+                                   <lightning-textarea name="request" placeholder="Request" value={request} onchange = {onRequestInformationChange}></lightning-textarea>
+                                </div>
+                            </lightning-tab>
+                        </template>
+                        <!--- Request Tab-->
+                    </lightning-tabset>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-small" class="custom-box">
+                <div class="row">
+                    <h2 class="header"><b>Response Information</b></h2>
+                    <div>
+                        <b>{statusInformation}</b>
+                    </div>
+                    <lightning-textarea name="response" placeholder="Response" value={response} readonly></lightning-textarea>
+
+
+                    <!--  -->
+
+                    <!-- <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="textarea-id-01">Textarea Label</label>
+                        <div class="slds-form-element__control">
+                        <textarea rows="17" id="textarea-id-01" placeholder="Placeholder text…" class="slds-textarea"></textarea>
+                        </div>
+                        </div> -->
+                    <!--  -->
+
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+</template>
