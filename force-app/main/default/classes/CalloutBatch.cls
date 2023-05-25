@@ -45,6 +45,5 @@ public class CalloutBatch implements Database.Batchable<sObject>,Database.Allows
         RestRequestController.ResponseWrapper resWrapper = RestRequestController.makeRestRequest(reqInfoWrapper);
 
         return new RestRequestController.RequestResponseWrapper(reqInfoWrapper,resWrapper,saReqWrapper);
-        
     }
  }
