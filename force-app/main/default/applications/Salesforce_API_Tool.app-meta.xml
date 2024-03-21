@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Allows for making requests and displays response</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>Salesforce API Tool</label>
+    <navType>Standard</navType>
+    <tabs>Postman_alternate_LWC</tabs>
+    <tabs>API_Request_Statistics</tabs>
+    <tabs>Saved_Request__c</tabs>
+    <tabs>Outbound_log__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Postman_Copy_UtilityBar</utilityBar>
+</CustomApplication>

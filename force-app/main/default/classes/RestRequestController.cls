@@ -1,3 +1,10 @@
+/**
+ * @description       : 
+ * @author            : Karthik 
+ * @group             : 
+ * @last modified on  : 03-21-2024
+ * @last modified by  : Karthik 
+**/
 public with sharing class RestRequestController {
     public static Long startTime;
     public static Long stoptTime;
@@ -9,7 +16,8 @@ public with sharing class RestRequestController {
         try {
             startTime = DateTime.now().getTime();
             System.debug('requestWrapper '+requestWrapper);
-            MetadataAPIUtility.handlePrerequisitesForCallout(requestWrapper);
+            if(Label.skipRemoteProxyCheckAndCreation != 'yes')    //skips the remote site check and creation if the custom label is set to yes
+                MetadataAPIUtility.handlePrerequisitesForCallout(requestWrapper);
             Httpresponse response = OutBoundIntegration.handleOutboundCall(requestWrapper);
             System.debug('response code '+ response.getStatusCode());
             System.debug('Response '+response);
