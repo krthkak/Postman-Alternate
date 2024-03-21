@@ -1,3 +1,10 @@
+<!--
+  @description       : 
+  @author            : Karthik 
+  @group             : 
+  @last modified on  : 03-21-2024
+  @last modified by  : Karthik 
+-->
 <template>
     <!-- Spinner start-->
     <div class="spinner">
@@ -53,7 +60,7 @@
                                 type="button"
                                 onchange = {onMethodChange}></lightning-radio-group>
                     
-                    <lightning-input name="URL" placeholder="Enter URL" value={URL} field-level-help="Be sure to add the URL into the Remote Site Settings setup configuration." onchange={onRequestInformationChange} required="true"></lightning-input><br/>
+                    <lightning-input name="URL" placeholder="Enter URL" value={URL} field-level-help="Be sure to add the URL into the Remote Site Settings setup configuration if you haven't/weren't able to configure the named Credential as described in the Setup Instruction file." onchange={onRequestInformationChange} required="true"></lightning-input><br/>
                     <lightning-button label="Send" onclick={sendRequest}></lightning-button>
                     <br><br/>
                     
